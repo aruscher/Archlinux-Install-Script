@@ -13,7 +13,7 @@ loadkeys $KEY_LAYOUT
 echo "Checking internet connection"
 ping google.de -c 1
 
-if [[ $? -eq 0 ]]
+if [ $? -eq 0 ]; then
    echo "No internet connection found. Please connect and rerun this script"
    exit
 fi
