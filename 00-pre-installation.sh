@@ -1,13 +1,12 @@
 #!/usr/bin/bash
 
-DRIVE_NAME="sda"
 KEY_LAYOUT="de-latin1"
 DRIVE_SIZE=30
 MAX_ROOT_SIZE=50
 MIN_HOME_SIZE=10
 RAM_SIZE=8
 
-DRIVE="/dev/$DRIVE_NAME"
+INSTALL_DRIVE="/dev/sda"
 
 
 # 1 Loadkeys
@@ -39,19 +38,19 @@ ROOT_SIZE=$(python -c "print(min($MAX_ROOT_SIZE,$DRIVE_SIZE-$RAM_SIZE-$MIN_HOME_
 echo ,$ROOT_SIZE\G,L,+ >> sfdisk.in
 echo ,$RAM_SIZE\G,S, >> sfdisk.in
 echo ,,L, >> sfdisk.in
-sfdisk $DRIVE < sfdisk.in
+sfdisk $INSTALL_DRIVE < sfdisk.in
 
 #5 Format partitions
 echo "Format Partitions"
-mkfs.ext4 $DRIVE\1
-mkfs.ext4 $DRIVE\3
-mkswap $DRIVE\2
-swapon $DRIVE\2
+mkfs.ext4 $INSTALL_DRIVE\1
+mkfs.ext4 $INSTALL_DRIVE\3
+mkswap $INSTALL_DRIVE\2
+swapon $INSTALL_DRIVE\2
 
 #6 Mount partitions
 echo "Mount Partitions"
-mount $DRIVE\1 /mnt
+mount $INSTALL_DRIVE\1 /mnt
 mkdir /mnt/home
-mount $DRIVE\3 /mnt/home
+mount $INSTALL_DRIVE\3 /mnt/home
 
 
