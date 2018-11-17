@@ -9,3 +9,4 @@ curl -s "https://www.archlinux.org/mirrorlist/?country=DE&protocol=http&protocol
 
 #8 Install base packages
 pacstrap /mnt base base-devel vim git
+

@@ -55,5 +55,3 @@ mkdir /mnt/home
 mount $DRIVE\3 /mnt/home
 
 
-#9 Configure system
-genfstab -U /mnt >> /mnt/etc/fstab
