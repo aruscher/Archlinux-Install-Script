@@ -1,10 +1,11 @@
-echo "Install required packages"
-pacman -S nmap openssh wicd alsa-utils xorg-server xorg-xinit xf86-video-vesa xf86-video-intel xf86-input-synaptics dialog grub os-prober zsh acpid dbus avahi cups cronie --noconfirm
-
-
+pacman -Sy dialog --noconfirm
 USERNAME=$(dialog --title "Archlinux-Setup" --inputbox "User name: " 10 10 --stdout)
-PASSWORD=$(dialog --title "Archlinux-Setup" --inputbox "User password (also root password):" 10 10 --stdout)
+PASSWORD=$(dialog --title "Archlinux-Setup" --passwordbox "User password (also root password):" 10 10 --stdout)
 HOSTNAME=$(dialog --title "Archlinux-Setup" --inputbox "Host name:" 10 10 --stdout)
+
+echo "Install required packages"
+pacman -Sy  go xorg-fonts-{100dpi,75dpi,misc,type1} ttf-hack ttf-dejavu nmap openssh wicd alsa-utils xorg-server xorg-xinit xf86-video-vesa xf86-video-intel xf86-input-synaptics grub os-prober zsh acpid dbus avahi cups cronie emacs sbcl --noconfirm
+
 
 #11 Set timezone
 echo "Set Timezone"
@@ -13,11 +14,13 @@ hwclock --systohc
 
 #12 Localization
 echo "Localization"
+echo LANG=en_US.UTF-8 >> /etc/locale.conf
+export LANG=en_US.UTF-8
+echo KEYMAP=de-latin1 > /etc/vconsole.conf
 echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
 echo de_DE.UTF-8 UTF-8 >> /etc/locale.gen
 locale-gen
 
-echo KEYMAP=de-latin1 > /etc/vconsole.conf
 
 #13
 echo "Set Hostname"
@@ -60,4 +63,5 @@ systemctl enable org.cups.cupsd.service
 systemctl enable systemd-timesyncd.service
 systemctl enable wicd.service
 systemctl enable sshd.service
+systemctl enable dhcp.service
 exit

@@ -1,17 +1,26 @@
 #!/usr/bin/bash
 
-git clone https://github.com/aruscher/dot-files.git
+#Keymap for X11
+#echo "Set Keymap for X11"
+#sudo localectl set-x11-keymap de pc105 nodeadkeys
+
+#echo "Blacklist Pcspkr"
+#sudo blacklist pcspkr
+
+echo "Install AUR helper: yay"
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ~
 
 #Install oh-my-zsh
 echo "Install oh-my-zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+yay -S oh-my-zsh-git
 
 echo "Install spacemacs"
-sudo pacman -S emacs
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 echo "Install LISP"
-sudo pacman -S sbcl
 mkdir tmp
 cd tmp
 curl -O https://beta.quicklisp.org/quicklisp.lisp
@@ -25,6 +34,7 @@ echo "Install stumpwm"
 sbcl --eval '(ql:quickload "clx")'\
      --eval '(ql:quickload "cl-ppcre")'\
      --eval '(ql:quickload "alexandria")'\
+     --eval '(ql:quickload "swank")'\
      --eval '(quit)'
 
 cd ~
@@ -38,8 +48,9 @@ sudo make install
 cd ~
 echo $(which stumpwm) >> ~/.xinitrc
 
+
+
+git clone https://github.com/aruscher/dot-files.git
 cd ~/dot-files
 chmod +x install.sh
 ./install.sh
-
-emacs
