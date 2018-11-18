@@ -4,7 +4,7 @@ PASSWORD=$(dialog --title "Archlinux-Setup" --passwordbox "User password (also r
 HOSTNAME=$(dialog --title "Archlinux-Setup" --inputbox "Host name:" 10 10 --stdout)
 
 echo "Install required packages"
-pacman -Sy  go xorg-fonts-{100dpi,75dpi,misc,type1} ttf-hack ttf-dejavu nmap openssh wicd alsa-utils xorg-server xorg-xinit xf86-video-vesa xf86-video-intel xf86-input-synaptics grub os-prober zsh acpid dbus avahi cups cronie emacs sbcl --noconfirm
+pacman -Sy go xorg-fonts-{100dpi,75dpi,misc,type1} ttf-hack ttf-dejavu nmap openssh wicd alsa-utils xorg-server xorg-xinit xf86-video-vesa xf86-video-intel xf86-input-synaptics grub os-prober zsh acpid dbus avahi cups cronie emacs sbcl python firefox --noconfirm
 
 
 #11 Set timezone
@@ -65,3 +65,6 @@ systemctl enable wicd.service
 systemctl enable sshd.service
 systemctl enable dhcp.service
 exit
+
+
+
